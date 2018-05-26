@@ -136,7 +136,7 @@ inline aiMatrix4x4t<TReal>::aiMatrix4x4t (const aiVector3t<TReal>& scaling, cons
 template <typename TReal>
 inline aiMatrix4x4t<TReal>& aiMatrix4x4t<TReal>::operator *= (const aiMatrix4x4t<TReal>& m)
 {
-    *this = aiMatrix4x4t<TReal>(
+    aiMatrix4x4t<TReal> temp(
         m.a1 * a1 + m.b1 * a2 + m.c1 * a3 + m.d1 * a4,
         m.a2 * a1 + m.b2 * a2 + m.c2 * a3 + m.d2 * a4,
         m.a3 * a1 + m.b3 * a2 + m.c3 * a3 + m.d3 * a4,
@@ -153,6 +153,8 @@ inline aiMatrix4x4t<TReal>& aiMatrix4x4t<TReal>::operator *= (const aiMatrix4x4t
         m.a2 * d1 + m.b2 * d2 + m.c2 * d3 + m.d2 * d4,
         m.a3 * d1 + m.b3 * d2 + m.c3 * d3 + m.d3 * d4,
         m.a4 * d1 + m.b4 * d2 + m.c4 * d3 + m.d4 * d4);
+    temp.d4 = m.a4 * d1 + m.b4 * d2 + m.c4 * d3 + m.d4 * d4;
+    *this = temp;
     return *this;
 }
 
